@@ -24,10 +24,10 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready(): #активация бота
-    logging.info(f'Logged in as {bot.user}')
+    logging.info(f'Авторизован как: {bot.user}')
     channel = bot.get_channel(CHANNEL_ID)
     if channel is None:
-        logging.error(f'Channel with ID {CHANNEL_ID} not found')
+        logging.error(f'ID вашего канала: {CHANNEL_ID} не найден')
         return
     await send_message_from_console(channel)
 
@@ -40,25 +40,25 @@ async def send_message_from_console(channel): #отправка сообщени
             else:
                 print("Вы ничего не ввели")
         except Exception as e:
-            logging.error(f"An error occurred: {e}")
+            logging.error(f"Ошибка: {e}")
             break
 
 @bot.command(name='send_message') #отвечает за инициализацию ID канала
 async def send_message(ctx, *, message):
     channel = bot.get_channel(CHANNEL_ID)
     if channel is None:
-        await ctx.send(f'Channel with ID {CHANNEL_ID} not found')
+        await ctx.send(f'Канал с ID {CHANNEL_ID} не найден')
         return
     await channel.send(message)
 
 try:
     bot.run(TOKEN)
 except discord.errors.HTTPException as e:
-    logging.error(f"Failed to start bot: {e}")
-    print(f"Failed to start bot: {e}")
+    logging.error(f"Ошибка при запуске бота: {e}")
+    print(f"Ошибка прои запуске бота: {e}")
 except Exception as e:
-    logging.error(f"An error occurred: {e}")
-    print(f"An error occurred: {e}")
+    logging.error(f"Ошибка: {e}")
+    print(f"Обнаружена ошибка: {e}")
 
 
 @bot.event #для логов сообщений во всех каналах
@@ -73,11 +73,11 @@ async def on_message(message):
 try:                        #для запуска бота
     bot.run(TOKEN)
 except discord.errors.HTTPException as e:
-    logging.error(f"Failed to start bot: {e}")
-    print(f"Failed to start bot: {e}")
+    logging.error(f"Ошибка прт запуске бота: {e}")
+    print(f"Ошибка прт запуске бота: {e}")
 except Exception as e:
-    logging.error(f"An error occurred: {e}")
-    print(f"An error occurred: {e}")
+    logging.error(f"Обнаружена ошибка: {e}")
+    print(f"Обнаружена ошибка: {e}")
 
 
 
